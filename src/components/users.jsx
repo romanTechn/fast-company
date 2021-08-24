@@ -7,9 +7,7 @@ const Users = () => {
   const table = document.querySelector(".table");
 
   const handleDelete = (userId) => {
-    users.length > 0
-      ? setUsers(users.filter((user) => user._id !== userId))
-      : table.remove();
+    return setUsers(users.filter((user) => user._id !== userId));
   };
 
   const renderPhase = (number) => {
