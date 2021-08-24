@@ -4,12 +4,17 @@ import api from "../API";
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
 
+  const table = document.querySelector(".table");
+
   const handleDelete = (userId) => {
-    return setUsers(users.filter((user) => user._id !== userId));
+    users.length > 0
+      ? setUsers(users.filter((user) => user._id !== userId))
+      : table.remove();
   };
 
   const renderPhase = (number) => {
-    if (number === 0) return "Никто с тобой не тусанет";
+    if (number === 0)
+      return (table.textContent = ""), "Никто с тобой не тусанет";
     if (number === 1) return `${number} человек тусанет с тобой сегодня`;
     if (
       number.toString() === "2" ||
@@ -59,7 +64,7 @@ const Users = () => {
                 </td>
                 <td>{user.profession.name}</td>
                 <td>{user.completedMeetings}</td>
-                <td>{user.rate}</td>
+                <td>{user.rate} /5</td>
                 <td>
                   <button
                     className="badge bg-danger"
