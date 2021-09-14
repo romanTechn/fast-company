@@ -16,7 +16,10 @@ module.exports = {
         "react/prop-types": 0,
         semi: [2, "always"],
         indent: ["error", 4],
-        "space-before-function-paren": ["error", "never"],
+        "space-before-function-paren": [
+            "error",
+            { anonymous: "always", named: "never" }
+        ],
         quotes: [
             "error",
             "double",
