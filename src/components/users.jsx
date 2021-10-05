@@ -15,7 +15,7 @@ const Users = () => {
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
 
-    const [users, setUsers] = useState(api.users.fetchAll());
+    const [users, setUsers] = useState();
 
     const handleDelete = (userId) => {
         const newUsers = users.filter((c) => c._id !== userId);
@@ -35,6 +35,10 @@ const Users = () => {
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
+    }, []);
+
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
     }, []);
 
     useEffect(() => {
