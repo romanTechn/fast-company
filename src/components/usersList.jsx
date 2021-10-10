@@ -8,13 +8,12 @@ import UserTable from "./usersTable";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
-const Users = () => {
+const UsersList = () => {
     const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-
     const [users, setUsers] = useState();
 
     const handleDelete = (userId) => {
@@ -120,8 +119,8 @@ const Users = () => {
     return "loading...";
 };
 
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;
