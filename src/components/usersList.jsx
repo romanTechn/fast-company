@@ -12,6 +12,7 @@ const UsersList = () => {
     const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
+    const [searchBar, setSearchBar] = useState("");
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const [users, setUsers] = useState();
@@ -42,10 +43,16 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchBar]);
 
     const handleProfessionSelect = (item) => {
+        if (searchBar !== "") setSearchBar("");
         setSelectedProf(item);
+    };
+
+    const handleSearchBar = ({ target }) => {
+        setSelectedProf(undefined);
+        setSearchBar(target.value);
     };
 
     const handlePageChange = (pageIndex) => {
@@ -57,7 +64,14 @@ const UsersList = () => {
     };
 
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = searchBar
+            ? users.filter(
+                  (user) =>
+                      user.name
+                          .toLowerCase()
+                          .indexOf(searchBar.toLowerCase()) !== -1
+              )
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -95,6 +109,14 @@ const UsersList = () => {
 
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input
+                        type="text"
+                        name="searchBar"
+                        className="form-control"
+                        placeholder="Search..."
+                        onChange={handleSearchBar}
+                        value={searchBar}
+                    />
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
